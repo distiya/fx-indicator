@@ -13,12 +13,13 @@ import java.util.Queue;
 
 public class IndicatorRSI {
 
-    public IndicatorRSI(Integer period){
-        this(period,2);
+    public IndicatorRSI(Integer period,IndicatorLogicApplier indicatorLogicApplier){
+        this(period,2,indicatorLogicApplier);
     }
 
-    public IndicatorRSI(Integer period,Integer historyCount){
+    public IndicatorRSI(Integer period,Integer historyCount,IndicatorLogicApplier indicatorLogicApplier){
         this.period = period;
+        this.indicatorLogicApplier = indicatorLogicApplier;
         this.historyCount = historyCount;
         if(this.historyCount > 0)
             this.history = new PriorityQueue<>(historyCount, Comparator.comparing(IndicatorValue::getTime));
@@ -37,6 +38,7 @@ public class IndicatorRSI {
     private IndicatorSMA upwardGain;
     private IndicatorSMA downwardGain;
     private Double previousValue;
+    private IndicatorLogicApplier indicatorLogicApplier;
 
     public void update(CandleData candleData, IndicatorLogicApplier indicatorLogicApplier){
         double currentValue;
@@ -50,7 +52,7 @@ public class IndicatorRSI {
     }
 
     public void update(CandleData candleData){
-        update(candleData,IndicatorLogicApplier.FOR_CLOSE);
+        update(candleData,indicatorLogicApplier);
     }
 
     public void update(Double currentValue, LocalDateTime candleTime){

@@ -15,17 +15,19 @@ public class IndicatorCrossEMADiffPercent {
     private IndicatorCrossEMA crossEMA;
     private IndicatorDiffPercent slowEMADiffPercent;
     private IndicatorDiffPercent fastEMADiffPercent;
+    private IndicatorLogicApplier indicatorLogicApplier;
     @Getter
     private Queue<IndicatorValue> history;
     @Setter
     private Integer historyCount;
 
-    public IndicatorCrossEMADiffPercent(Integer slowPeriod,Integer fastPeriod){
-        this(slowPeriod,fastPeriod,2);
+    public IndicatorCrossEMADiffPercent(Integer slowPeriod,Integer fastPeriod,IndicatorLogicApplier indicatorLogicApplier){
+        this(slowPeriod,fastPeriod,2,indicatorLogicApplier);
     }
 
-    public IndicatorCrossEMADiffPercent(Integer slowPeriod,Integer fastPeriod,Integer historyCount){
+    public IndicatorCrossEMADiffPercent(Integer slowPeriod,Integer fastPeriod,Integer historyCount,IndicatorLogicApplier indicatorLogicApplier){
         this.historyCount = historyCount;
+        this.indicatorLogicApplier = indicatorLogicApplier;
         if(this.historyCount > 0)
             this.history = new PriorityQueue<>(historyCount, Comparator.comparing(IndicatorValue::getTime));
         this.crossEMA = new IndicatorCrossEMA(slowPeriod,fastPeriod,0);
@@ -50,7 +52,7 @@ public class IndicatorCrossEMADiffPercent {
     }
 
     public void update(CandleData candleData){
-        update(candleData,IndicatorLogicApplier.FOR_CLOSE);
+        update(candleData,indicatorLogicApplier);
     }
 
     public Double getFastEMAPriceDiffPercent(){

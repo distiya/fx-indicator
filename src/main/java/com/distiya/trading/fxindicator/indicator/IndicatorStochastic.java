@@ -82,7 +82,10 @@ public class IndicatorStochastic{
     }
 
     private double getCurrentStochastic(double close,double high, double low){
-        return (close - low)/(high - low)*100;
+        Double currentStochastic = (close - low)/(high - low)*100;
+        if(currentStochastic.isNaN())
+            return 0.0d;
+        return currentStochastic.doubleValue();
     }
 
     private void updateCandleHistory(CandleData currentPrice){

@@ -1,7 +1,7 @@
 package com.distiya.trading.fxindicator;
 
+import com.distiya.trading.fxindicator.constant.IndicatorLogicApplier;
 import com.distiya.trading.fxindicator.dto.CandleData;
-import com.distiya.trading.fxindicator.indicator.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -72,7 +72,7 @@ public class TestIndicators {
         double closeValues[] = new double[]{3345.6,3324.6,3212.5,3114.5,3456.4,3214.6,3678.2,3114.6,3254.3,3614.2,3294.1};
         double highValues[] = new double[]{3348.6,3329.6,3217.5,3119.5,3459.4,3217.6,3685.2,3119.6,3259.3,3619.2,3299.1};
         double lowValues[] = new double[]{3343.6,3321.6,3204.5,3110.5,3450.4,3210.6,3674.2,3111.6,3252.3,3611.2,3290.1};
-        IndicatorROC indicatorRoc = new IndicatorROC(5);
+        IndicatorROC indicatorRoc = new IndicatorROC(5,IndicatorLogicApplier.FOR_CLOSE);
         int i;
         for(i=0;i<closeValues.length;i++){
             CandleData data = new CandleData();
@@ -135,7 +135,7 @@ public class TestIndicators {
         double closeValues[] = new double[]{3345.6,3324.6,3212.5,3114.5,3456.4,3214.6,3678.2,3114.6,3254.3,3614.2,3294.1};
         double highValues[] = new double[]{3348.6,3329.6,3217.5,3119.5,3459.4,3217.6,3685.2,3119.6,3259.3,3619.2,3299.1};
         double lowValues[] = new double[]{3343.6,3321.6,3204.5,3110.5,3450.4,3210.6,3674.2,3111.6,3252.3,3611.2,3290.1};
-        IndicatorRSI indicatorRSI = new IndicatorRSI(3);
+        IndicatorRSI indicatorRSI = new IndicatorRSI(3,IndicatorLogicApplier.FOR_CLOSE);
         int i;
         for(i=0;i<closeValues.length;i++){
             CandleData data = new CandleData();
@@ -177,7 +177,7 @@ public class TestIndicators {
         double closeValues[] = new double[]{3345.6,3324.6,3212.5,3114.5,3456.4,3214.6,3678.2,3114.6,3254.3,3614.2,3294.1};
         double highValues[] = new double[]{3348.6,3329.6,3217.5,3119.5,3459.4,3217.6,3685.2,3119.6,3259.3,3619.2,3299.1};
         double lowValues[] = new double[]{3343.6,3321.6,3204.5,3110.5,3450.4,3210.6,3674.2,3111.6,3252.3,3611.2,3290.1};
-        IndicatorCrossEMADiffPercent indicatorCrossEMADiffPercent = new IndicatorCrossEMADiffPercent(5,3);
+        IndicatorCrossEMADiffPercent indicatorCrossEMADiffPercent = new IndicatorCrossEMADiffPercent(5,3, IndicatorLogicApplier.FOR_CLOSE);
         int i;
         for(i=0;i<closeValues.length;i++){
             CandleData data = new CandleData();

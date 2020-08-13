@@ -16,12 +16,13 @@ import java.util.Queue;
 @NoArgsConstructor
 public class IndicatorROC {
 
-    public IndicatorROC(Integer period){
-        this(period,2);
+    public IndicatorROC(Integer period,IndicatorLogicApplier indicatorLogicApplier){
+        this(period,2,indicatorLogicApplier);
     }
 
-    public IndicatorROC(Integer period,Integer historyCount){
+    public IndicatorROC(Integer period,Integer historyCount,IndicatorLogicApplier indicatorLogicApplier){
         this.period = period;
+        this.indicatorLogicApplier = indicatorLogicApplier;
         this.historyCount = historyCount;
         if(this.historyCount > 0)
             this.history = new PriorityQueue<>(historyCount, Comparator.comparing(IndicatorValue::getTime));
@@ -36,9 +37,10 @@ public class IndicatorROC {
     private Queue<Double> pastValues = new LinkedList<>();
     @Getter
     private Queue<IndicatorValue> history;
+    private IndicatorLogicApplier indicatorLogicApplier;
 
     public void update(CandleData candleData){
-        update(candleData,IndicatorLogicApplier.FOR_CLOSE);
+        update(candleData,indicatorLogicApplier);
     }
 
     public void update(CandleData candleData, IndicatorLogicApplier indicatorLogicApplier){
